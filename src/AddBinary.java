@@ -41,6 +41,7 @@ public class AddBinary {
         String b = "110101001011101110001111100110001010100001101011101010000011011011001011101111001100000011011110011";
         String c = add.addBinary(a, b);
         System.out.println("结果是：" + c);
+        //验证一下git的提交
     }
 }
 
