@@ -19,6 +19,7 @@ public class TwoSum2 {
                 }
             }
             //用while的时候不要忘记自己++，同时注意++的位置
+            //哇哦，amazing!
             i++;
         }
         res[0] = i;
