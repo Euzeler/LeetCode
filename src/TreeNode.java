@@ -1,4 +1,5 @@
 public class TreeNode {
+    public boolean next;
     int val;
     TreeNode left;
     TreeNode right;
