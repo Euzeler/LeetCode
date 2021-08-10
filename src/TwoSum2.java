@@ -6,10 +6,13 @@ public class TwoSum2 {
         boolean flag = false;
         while(i < numbers.length && flag == false){
             if(numbers[i] > target){
-                i++;
+                break;
             }
             j = i + 1;
             while(j < numbers.length){
+                if(numbers[j] > target){
+                    break;
+                }
                 if(numbers[i] + numbers[j] != target){
                     j++;
                 }
