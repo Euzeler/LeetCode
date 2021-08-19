@@ -1,57 +1,76 @@
 import java.util.HashSet;
 
 public class ValidSudoku1 {
-    public class ValidSudoku {
-        public boolean isValidSudoku(char[][] board) {
-            //boolean isValid = false;
-            //横,i
-
-            for (int i = 0; i < 9; i++) {
-                //这句话的位置幼。。
-                HashSet<Character> hashSet100 = new HashSet<>();
-                for (int j = 0; j < 9; j++) {
-
-                    if (board[i][j] == '.') {
-                        continue;
-                    } else if (board[i][j] < '1' || board[i][j] > '9') {
-                        return false;
-                    } else {
-                        if (hashSet100.contains(board[i][j])) {
-                            return false;
-                        } else {
-                            hashSet100.add(board[i][j]);
-                        }
-                    }
-                }
-                hashSet100.clear();
-            }
-
-            //纵
-
+    //这份代码是错的，LeetCode上的是对的，要分开写。
+    public boolean isValidSudoku(char[][] board) {
+        for (int i = 0; i < 9; i++) {
+            //这句话的位置幼。。
+            HashSet<Character> hashSet100 = new HashSet<>();
+            HashSet<Character> hashSet101 = new HashSet<>();
+            HashSet<Character> hashSet102 = new HashSet<>();
             for (int j = 0; j < 9; j++) {
-                HashSet<Character> hashSet101 = new HashSet<>();
-                for (int i = 0; i < 9; i++) {
-                    //这个的位置，讲究啊，一个循环一个hash
 
-                    if (board[i][j] == '.') {
-                        continue;
-                    } else if (board[i][j] < '1' || board[i][j] > '9') {
+                if (board[i][j] == '.') {
+                    continue;
+                } else if (board[i][j] < '1' || board[i][j] > '9') {
+                    return false;
+                } else {
+                    if (hashSet100.contains(board[i][j])) {
                         return false;
                     } else {
-                        if (hashSet101.contains(board[i][j])) {
-                            return false;
-                        } else {
-                            hashSet101.add(board[i][j]);
-                        }
+                        hashSet100.add(board[i][j]);
                     }
                 }
-                hashSet101.clear();
-            }
 
-            //明天写小方块
-            
-            return true;
+                if (board[j][i] == '.') {
+                    continue;
+                } else if (board[j][i] < '1' || board[j][i] > '9') {
+                    return false;
+                } else {
+                    if (hashSet101.contains(board[j][i])) {
+                        return false;
+                    } else {
+                        hashSet101.add(board[j][i]);
+                    }
+                }
+
+                int RowIndex = 3*(i/3);
+                int ColIndex = 3*(i%3);
+                if (board[RowIndex + j/3][ColIndex + j%3] == '.') {
+                    continue;
+                } else if (board[RowIndex + j/3][ColIndex + j%3] < '1' || board[RowIndex + j/3][ColIndex + j%3] > '9') {
+                    return false;
+                } else {
+                    if (hashSet102.contains(board[RowIndex + j/3][ColIndex + j%3])) {
+                        return false;
+                    } else {
+                        hashSet102.add(board[RowIndex + j/3][ColIndex + j%3]);
+                    }
+                }
+            }
+            // hashSet100.clear();
+            // hashSet101.clear();
+            // hashSet102.clear();
         }
+        return true;
+    }
+
+
+    public static void main(String[] args){
+        char[][] input = {{'.','.','.','.','5','.','.','1','.'},
+                          {'.','4','.','3','.','.','.','.','.'},
+                          {'.','.','.','.','.','3','.','.','1'},
+                          {'8','.','.','.','.','.','.','2','.'},
+                          {'.','.','2','.','7','.','.','.','.'},
+                          {'.','1','5','.','.','.','.','.','.'},
+                          {'.','.','.','.','.','2','.','.','.'},
+                          {'.','2','.','9','.','.','.','.','.'},
+                          {'.','.','4','.','.','.','.','.','.'}
+        };
+        //其实手动输入可能更快
+        ValidSudoku1 v = new ValidSudoku1();
+        boolean ret = v.isValidSudoku(input);
+        System.out.println(ret);
     }
 }
 
@@ -76,3 +95,23 @@ public class ValidSudoku1 {
 // [".",".",".",".","8",".",".","7","9"]]
 
 //考试的时候，这个逻辑搞对，能做 473/507 出来，挺不错的了。
+
+//[[".",".",".",".","5",".",".","1","."],
+// [".","4",".","3",".",".",".",".","."],
+// [".",".",".",".",".","3",".",".","1"],
+// ["8",".",".",".",".",".",".","2","."],
+// [".",".","2",".","7",".",".",".","."],
+// [".","1","5",".",".",".",".",".","."],
+// [".",".",".",".",".","2",".",".","."],
+// [".","2",".","9",".",".",".",".","."],
+// [".",".","4",".",".",".",".",".","."]]
+
+//[["8","3",".",".","7",".",".",".","."],
+// ["6",".",".","1","9","5",".",".","."],
+// [".","9","8",".",".",".",".","6","."],
+// ["8",".",".",".","6",".",".",".","3"],
+// ["4",".",".","8",".","3",".",".","1"],
+// ["7",".",".",".","2",".",".",".","6"],
+// [".","6",".",".",".",".","2","8","."],
+// [".",".",".","4","1","9",".",".","5"],
+// [".",".",".",".","8",".",".","7","9"]]
