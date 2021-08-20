@@ -36,6 +36,7 @@ public class IntersectionOfTwoLinkedLists {
         }
         System.out.println("测试： " + retVal + " idx: " + retIdx);
 
+
         System.out.println("测试：headA = " + pre.next.val);
         if(retVal == 0) return null;
         int count = 1;
@@ -49,6 +50,7 @@ public class IntersectionOfTwoLinkedLists {
         ListNode ret = null;
         return ret;
     }
+
 
     //没错
     public ListNode reverse(ListNode head){

@@ -4,28 +4,24 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CombinationSum1 {
-    //回溯，其实也是递归。
+    //回溯，其实也是递归。还要多写几遍
     public List<List<Integer>> combinationSum(int[] nums, int target) {
-        List<List<Integer>> list = new ArrayList<>();
-        Arrays.sort(nums);
-        backtrack(list, new ArrayList<>(), nums, target, 0);
-        return list;
+        List<List<Integer>> ret = new ArrayList<>();
+        List<Integer> tmpList = new ArrayList<>();
+        backtrack(ret, tmpList, nums, target, 0);
+        return ret;
     }
 
     private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] nums, int remain, int start){
-        //remain是还差多少，
         if(remain < 0) return;
-        //找到了，
         else if(remain == 0) {
             List<Integer> addList = new ArrayList<>(tempList);
             list.add(addList);
-            //list.add(new ArrayList<>(tempList));
         }
         else{
             for(int i = start; i < nums.length; i++){
                 tempList.add(nums[i]);
-                backtrack(list, tempList, nums, remain - nums[i], i); // not i + 1 because we can reuse same elements
-                //删掉最后一个
+                backtrack(list, tempList, nums, remain - nums[i], i);
                 tempList.remove(tempList.size() - 1);
             }
         }
