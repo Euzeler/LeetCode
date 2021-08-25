@@ -3,17 +3,38 @@ public class MaximumAverageSubarray1 {
         if(nums.length == 1) return (double) nums[0] / k;
         //这个要用这个，不能用Double.MIN_VALUE，现在只是时间不够，那么明天看怎么解决
         //用负无穷，
-        double ret = Double.NEGATIVE_INFINITY;
-        //i是起点
-        for(int i = 0; i < nums.length - k + 1; i++){
-            double tmp = 0;
-            //二重循环
-            for(int j = i; j < i + k; j++){
-                tmp += nums[j];
-            }
-            ret = Math.max(ret, (double) (tmp / k));
+//        double ret = Double.NEGATIVE_INFINITY;
+//        //i是起点
+//        for(int i = 0; i < nums.length - k + 1; i++){
+//            double tmp = 0;
+//            //二重循环
+//            for(int j = i; j < i + k; j++){
+//                //这么一点也要优化啊，就这么一点加法，优化了一半的加法掉。
+//                tmp += nums[j];
+//            }
+//            ret = Math.max(ret, tmp);
+//        }
+//        Double ret1 = (Double)(ret / k);
+//        return ret1;
+
+        int sum = 0;
+        for(int i = 0; i < k; i++){
+            sum += nums[i];
         }
-        return ret;
+        int max = sum;
+        int p = 0, q = k;
+        //条件
+
+        //因为第一次已经算掉了，所以需要这么多次，这样写更容易理解
+        for(int i = 1; i < nums.length - k + 1; i++){
+            sum += (nums[q++] - nums[p++]);
+            if(max < sum) max = sum;
+        }
+        return (double)max / k;
+
+        //把除法移到外面来，还是太慢，无法通过测试用例，
+        //以上的方法太慢，通过不了测试用例，
+
     }
 
     public static void main(String[] args){
@@ -24,5 +45,6 @@ public class MaximumAverageSubarray1 {
         System.out.println(ret);
         //奥，测试了就知道，这个不是最小的呀。
         System.out.println("测试： " + Double.MIN_VALUE);
+        System.out.println("测试： " + Double.NEGATIVE_INFINITY);
     }
 }

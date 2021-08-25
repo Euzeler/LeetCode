@@ -15,6 +15,7 @@ public class AverageOfLevelsInBinaryTree {
     private void helper(TreeNode node, int level){
         if(node == null)
             return;
+        //
         if(list.size() == level){
             list.add(new Sum(node.val, 1));
         }
