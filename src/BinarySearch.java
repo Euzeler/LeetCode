@@ -10,7 +10,9 @@ public class BinarySearch {
                 left = mid + 1;
             }
             else if(nums[mid] > target){
-                right = right - 1;
+                //这个怎么还写错啊，
+                //写成了right = right - 1
+                right = mid - 1;
             }
         }
         return -1;
