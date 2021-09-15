@@ -12,6 +12,7 @@ public class Permutations_1 {
     private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] nums){
         if(tempList.size() == nums.length){
             list.add(new ArrayList<>(tempList));
+            System.out.println(tempList);
         } else{
             for(int i = 0; i < nums.length; i++){
                 if(tempList.contains(nums[i])) continue; // element already exists, skip
